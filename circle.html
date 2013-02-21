@@ -34,6 +34,7 @@ circle.parent:hover {
 
 circle.child {
   pointer-events: none;
+  fill-opacity: .5;
 }
 
     </style>
@@ -81,7 +82,8 @@ function visualize(num_of_phrases){
 		.attr("height", h)
 	  .append("svg:g")
 		.attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
-
+    
+	var current = 0;
 	d3.json("dblp.json", function(data) {
 	  node = root = data;
 
@@ -92,7 +94,10 @@ function visualize(num_of_phrases){
 			.enter().append("svg:g")
 			.attr("x", function(d) {return d.x; })
 			.attr("y", function(d) {return d.y; })
-			.on("click", function(d) { return zoom(node == d ? root : d); });
+			.on("click", function(d) { 
+				return zoom(node == d ? root : d); 
+				}
+			);
 
 	  var circle = group.append("svg:circle")
 		  .attr("class", function(d) { return d.children ? "parent" : "child"; })
@@ -108,7 +113,10 @@ function visualize(num_of_phrases){
 			.attr("y", function(d) {return d.y-d.r/2; })
 		  //.attr("dy", ".35em")
 		  .attr("text-anchor", "middle")
-		  //.style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
+		  .style("opacity", function(d) { 
+			//return d.r > 20 ? 1 : 0; 
+			return d.depth == current + 1 ? 1 : 0;
+			})
 		  for(var i=0; i<num_of_phrases;i++){
 				svgtxt.append("svg:tspan")
 					.attr('x', function(d){return d.x})
@@ -131,6 +139,7 @@ function visualize(num_of_phrases){
 	});
 
 	function zoom(d, i) {
+	  current = d.depth;
 	  var k = r / d.r / 2;
 	  x.domain([d.x - d.r, d.x + d.r]);
 	  y.domain([d.y - d.r, d.y + d.r]);
@@ -145,8 +154,11 @@ function visualize(num_of_phrases){
 
 	  t.selectAll("text")
 		  .attr("x", function(d) { return x(d.x); })
-		  .attr("y", function(d) { return y(d.y)-d.r/2; });
-		  //.style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; });
+		  .attr("y", function(d) { return y(d.y)-d.r/2; })
+		  .style("opacity", function(d) { 
+			 //return k * d.r > 20 ? 1 : 0; 
+			return d.depth == current + 1 ? 1 : 0;
+		   });
 	  t.selectAll("tspan")
 		  .attr("x", function(d){ return x(d.x)});
 	  node = d;
