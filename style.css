@@ -22,6 +22,7 @@ body {
 }
 
 #header.inverted, #footer.inverted {
+  
   color: #fff;
   text-shadow: 0 1px 4px #000;
 }
@@ -30,6 +31,7 @@ body {
   /*top: 80px;
   left: 140px;
   width: 1000px;*/
+  position: fixed;
   font-size: 28px;
   top: 20px;
   right: 40px;

@@ -127,7 +127,7 @@ function visualize(num_of_phrases){
 		var svgtxt = group.append("svg:text")
 			.attr("class", function(d) { return d.children ? "parent" : "child"; })
 			.attr("x", function(d) {return d.x-d.w; })
-			.attr("y", function(d) {return d.y-d.r; })
+			.attr("y", function(d) {return d.y-d.r/2; })
 			//.attr("dy", ".35em")
 			.attr("text-anchor", "middle")
 			.style("opacity", function(d) { 
@@ -173,7 +173,7 @@ function visualize(num_of_phrases){
 
 		t.selectAll("text")
 			.attr("x", function(d) { return x(d.x); })
-			.attr("y", function(d) { return y(d.y); })
+			.attr("y", function(d) { return y(d.y)-d.r/2; })
 			.style("opacity", function(d) { 
 				//return k * d.r > 20 ? 1 : 0; 
 				return d.depth == current + 1 ? 1 : 0;
