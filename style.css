@@ -7,17 +7,18 @@ body {
   padding-bottom:20px;
 }
 
-#chart, #header, #footer {
+#chart {
   position: absolute;
   top: 0;
 }
 
+  
 #header, #footer {
   z-index: 1;
   display: block;
-  font-size: 28px;
   font-weight: 300;
   text-shadow: 0 1px 0 #fff;
+  position: absolute;
 }
 
 #header.inverted, #footer.inverted {
@@ -29,15 +30,17 @@ body {
   /*top: 80px;
   left: 140px;
   width: 1000px;*/
+  font-size: 28px;
   top: 20px;
   right: 40px;
   text-align: right;
 }
 
 #footer {
-  top: 20px;
+  bottom: 20px;
   right: 140px;
-  text-align: right;
+  text-align: left;
+  font-size: 20px;
 }
 
 rect {

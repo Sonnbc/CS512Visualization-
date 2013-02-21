@@ -56,6 +56,11 @@ circle.child {
 		</div>
       </div>
 	  
+	  <div id="footer">
+		<h1> Current category:</h1>
+		<div/> 
+	  </div>
+	  
     </div>
     <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
@@ -64,6 +69,16 @@ circle.child {
     <script type="text/javascript">
 visualize(4);
 $('#phrases').change(function(){d3.select("svg").remove(); visualize($(this).val())});
+
+function renderFooter(d) {
+	var name = d.name; 
+	var nameSplit = name.split(",");
+	$("#footer div").html("");
+	for (var i in nameSplit) {
+		$("#footer div").append(nameSplit[i] + "</br>");
+	}
+}
+		
 function visualize(num_of_phrases){
 	var w = 1280,
 		h = 800,
@@ -81,16 +96,17 @@ function visualize(num_of_phrases){
 	var vis = d3.select("body").insert("svg:svg", "h2")
 		.attr("width", w)
 		.attr("height", h)
-	  .append("svg:g")
+		.append("svg:g")
 		.attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
     
 	var current = 0;
 	d3.json("dblp.json", function(data) {
-	  node = root = data;
-
-	  var nodes = pack.nodes(root);
-
-	  var group = vis.selectAll("g")
+		node = root = data;
+		
+		renderFooter(root);
+		var nodes = pack.nodes(root);
+		
+		var group = vis.selectAll("g")
 			.data(nodes)
 			.enter().append("svg:g")
 			.attr("x", function(d) {return d.x; })
@@ -100,25 +116,25 @@ function visualize(num_of_phrases){
 				}
 			);
 
-	  var circle = group.append("svg:circle")
-		  .attr("class", function(d) { return d.children ? "parent" : "child"; })
-		  .attr("cx", function(d) {return d.x; })
-		  .attr("cy", function(d) {return d.y; })
-		  .attr("r", function(d) { radius = d.r; return d.r; })
-		  .attr("text",function(d){ return d.name;})
+		var circle = group.append("svg:circle")
+			.attr("class", function(d) { return d.children ? "parent" : "child"; })
+			.attr("cx", function(d) {return d.x; })
+			.attr("cy", function(d) {return d.y; })
+			.attr("r", function(d) { radius = d.r; return d.r; })
+			.attr("text",function(d){ return d.name;})
 		  
 
-	  var svgtxt = group.append("svg:text")
-		  .attr("class", function(d) { return d.children ? "parent" : "child"; })
+		var svgtxt = group.append("svg:text")
+			.attr("class", function(d) { return d.children ? "parent" : "child"; })
 			.attr("x", function(d) {return d.x-d.w; })
 			.attr("y", function(d) {return d.y-d.r/2; })
-		  //.attr("dy", ".35em")
-		  .attr("text-anchor", "middle")
-		  .style("opacity", function(d) { 
+			//.attr("dy", ".35em")
+			.attr("text-anchor", "middle")
+			.style("opacity", function(d) { 
 			//return d.r > 20 ? 1 : 0; 
 			return d.depth == current + 1 ? 1 : 0;
 			})
-		  for(var i=0; i<num_of_phrases;i++){
+			for(var i=0; i<num_of_phrases;i++){
 				svgtxt.append("svg:tspan")
 					.attr('x', function(d){return d.x})
 					.attr('dy','1em')
@@ -136,34 +152,35 @@ function visualize(num_of_phrases){
 						});
 		}
 
-	  d3.select(window).on("click", function() { zoom(root); });
+		d3.select(window).on("click", function() { zoom(root); });
 	});
 
 	function zoom(d, i) {
-	  current = d.depth;
-	  var k = r / d.r / 2;
-	  x.domain([d.x - d.r, d.x + d.r]);
-	  y.domain([d.y - d.r, d.y + d.r]);
+		current = d.depth;
+		renderFooter(d);
+		var k = r / d.r / 2;
+		x.domain([d.x - d.r, d.x + d.r]);
+		y.domain([d.y - d.r, d.y + d.r]);
 
-	  var t = vis.transition()
-		  .duration(d3.event.altKey ? 7500 : 750);
+		var t = vis.transition()
+			.duration(d3.event.altKey ? 7500 : 750);
 
-	  t.selectAll("circle")
-		  .attr("cx", function(d) { return x(d.x); })
-		  .attr("cy", function(d) { return y(d.y); })
-		  .attr("r", function(d) { return k * d.r; });
+		t.selectAll("circle")
+			.attr("cx", function(d) { return x(d.x); })
+			.attr("cy", function(d) { return y(d.y); })
+			.attr("r", function(d) { return k * d.r; });
 
-	  t.selectAll("text")
-		  .attr("x", function(d) { return x(d.x); })
-		  .attr("y", function(d) { return y(d.y)-d.r/2; })
-		  .style("opacity", function(d) { 
-			 //return k * d.r > 20 ? 1 : 0; 
-			return d.depth == current + 1 ? 1 : 0;
-		   });
-	  t.selectAll("tspan")
-		  .attr("x", function(d){ return x(d.x)});
-	  node = d;
-	  d3.event.stopPropagation();
+		t.selectAll("text")
+			.attr("x", function(d) { return x(d.x); })
+			.attr("y", function(d) { return y(d.y)-d.r/2; })
+			.style("opacity", function(d) { 
+				//return k * d.r > 20 ? 1 : 0; 
+				return d.depth == current + 1 ? 1 : 0;
+			});
+		t.selectAll("tspan")
+			.attr("x", function(d){ return x(d.x)});
+		node = d;
+		d3.event.stopPropagation();
 	}
 }
 
