@@ -127,7 +127,7 @@ function visualize(num_of_phrases){
 		var svgtxt = group.append("svg:text")
 			.attr("class", function(d) { return d.children ? "parent" : "child"; })
 			.attr("x", function(d) {return d.x-d.w; })
-			.attr("y", function(d) {return d.y-d.r/2; })
+			.attr("y", function(d) {return d.y-d.r; })
 			//.attr("dy", ".35em")
 			.attr("text-anchor", "middle")
 			.style("opacity", function(d) { 
