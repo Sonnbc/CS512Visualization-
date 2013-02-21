@@ -1,0 +1,196 @@
+
+{
+ "name": "DBLP Publications in 5 Areas,,,,,,,,,",
+ "children": [
+  {
+   "name": "support vector machines,selection feature,support vector,conditional random fields,collaborative filtering,random fields,classification text,trees decision,dimensionality reduction,text categorization",
+   "children": [
+    {
+     "name": "support vector machines,support vector,conditional random fields,dimensionality reduction,random fields,matrix factorization,analysis discriminant,logistic regression,classification support vector,random walks",
+      "children": [
+       {"name": "dimensionality reduction,matrix factorization,logistic regression,matrix factorization nonnegative,matrix factorization non-negative,analysis discriminant,component principal,matrix nonnegative,approximation function,analysis component principal", "size": 1},
+       {"name": "support vector,support vector machines,conditional random fields,random fields,random walks,random walk,roc area,gradient descent,area curve,density estimation", "size": 1}
+      ]
+    },
+    {
+     "name": "selection feature,collaborative filtering,classification text,text categorization,learning active,naive bayes,learning semi-supervised,study empirical,learning rank,study comparative",
+     "children": [
+      {"name": "text categorization,classification text,naive bayes,learning active,learning semi-supervised,labeled unlabeled,learning rank,learning distance metric,learning metric,bayes nanullve", "size": 1},
+      {"name": "selection feature,collaborative filtering,study empirical,selection,learning selection feature,study comparative,text selection feature,classification selection feature,text selection categorization feature", "size": 1}
+     ]
+    },
+    {
+     "name": "trees decision,neural networks,entropy maximum,hidden markov,models hidden markov,decision tree,neural network,bayesian networks,decision processes markov,resolution coreference",
+     "children": [
+      {"name": "monte carlo,neural networks,bayesian networks,bayesian network,document clustering,markov chain monte carlo,neural network,markov monte carlo,clustering hierarchical,labeling sequence", "size": 1},
+      {"name": "hidden markov,entropy maximum,models hidden markov,process gaussian,maximum margin,models markov,processes markov,model hidden markov,clustering maximum margin,variable latent", "size": 1},
+      {"name": "trees decision,decision processes markov,decision tree,resolution coreference,summarization multi-document,decision markov,trees,decision,resolution,model unified,multi-document topic-focused", "size": 1}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "query processing,systems database,control concurrency,optimization query,data management,database system,system management,artificial intelligence,databases deductive,systems",
+   "children": [
+    {
+     "name": "query processing,optimization query,databases deductive,databases relational,materialized views,sql server microsoft,databases object-oriented,data query,database relational,data processing",
+     "children": [
+       {"name": "databases deductive,materialized views,databases object-oriented,databases relational,maintenance view,views xml,relational dbms,databases query deductive,maintenance materialized views,maintenance warehouse", "size": 1},
+       {"name": "parallel massively,sql server microsoft,sql server,sql microsoft,divide conquer,engines caching,caching,sql,search engines caching,parallel processor", "size": 1},
+       {"name": "schema mappings,xml,schema,schema evolution,xml schemas,schemas,schema mapping,database universal db2,querying xml,schema xml", "size": 1},
+       {"name": "query processing,optimization query,processing stream,processing parallel,query xml,processing xml,processing join,evaluation query,query optimizer,query caching", "size": 1}
+      ]
+    },
+    {
+     "name": "control concurrency,systems database,systems distributed,memory main,database distributed,database control concurrency,load shedding,control access,systems database distributed,load balancing",
+     "children": [
+       {"name": "systems database,systems distributed,database distributed,graphics processors,systems recommender,systems database distributed,database schemes,systems multi-agent,database federated,systems database protocol", "size": 1},
+       {"name": "memory main,load shedding,load balancing,load stream shedding,performance evaluation,allocation resource,database memory main,database load balancing,systems database load balancing,database parallel", "size": 1},
+       {"name": "control concurrency,database control concurrency,database concurrency,systems database control concurrency,control access,systems control,database distributed control concurrency,distributed control concurrency,database control", "size": 1},
+       {"name": "arrays disk,file organizations,consistency maintaining,protocols locking,protocols commit,file grid,scheme,file,protocol,transaction recovery", "size": 1}
+      ]
+    },
+    {
+     "name": "artificial intelligence,knowledge base,database system,knowledge bases,system expert,system management,design database,design implementation,matter front,database object-oriented",
+     "children": [
+       {"name": "computer aided,matter front,electronic commerce,regions developing,system architecture,system vision,system supporting,system advanced,system capabilities,system multi-agent", "size": 1},
+       {"name": "database system,design implementation,database object-oriented,database system object-oriented,object bases,design database,object oriented,design physical,database research,software engineering", "size": 1},
+       {"name": "knowledge base,knowledge bases,system expert,knowledge system,invited paper,knowledge,system base,knowledge system base,position paper,expert", "size": 1},
+       {"name": "artificial intelligence,intelligence,database research panel,computer science,project,overview,report,research panel,ai,computer vision", "size": 1}
+      ]
+    },
+    {
+     "name": "data management,data integration,data warehousing,data warehouse,data sources,data platform services aqualogic,sources heterogeneous,data base,research directions,business intelligence",
+     "children": [
+       {"name": "data management,data sources,sources heterogeneous,libraries digital,abstract demonstration,data sharing,data challenges,data integration,data warehouses,data abstract types", "size": 1},
+       {"name": "data platform services aqualogic,data services,mobile devices,data mobile,service composition,world real,mobile environments,platform services,mobile,access mobile", "size": 1},
+       {"name": "past present,future past,future present,future directions,challenges opportunities,challenges,panel directions,challenges applications,future panel,tutorial", "size": 1},
+       {"name": "data warehousing,data warehouse,research directions,research future directions,querying provenance,research future,workflow provenance,data broadcast,research art,data business", "size": 1}
+      ]
+    }
+   ]
+  },
+  {
+   "name": "mining data,time series,association rules,data streams,nearest neighbor,high dimensional,mining association rules,mining patterns,mining frequent,mining association",
+   "children": [
+   {
+    "name": "networks sensor,estimation selectivity,data queries,continuous queries,databases large,matching pattern,algorithm efficient,efficient computation,data efficient,spatio-temporal objects moving",
+    "children": [
+      {"name": "algorithm join,join,spatial,algorithms join,spatial joins,efficient joins,estimation join,hash joins,join non-blocking,joins", "size": 1},
+      {"name": "estimation selectivity,queries xml,efficient xml,querying xml,approximate string,xml twig,structural xml,databases spatial,efficient xml twig,databases querying", "size": 1},
+      {"name": "networks sensor,continuous queries,queries join,queries aggregate,queries range,networks sensor energy-efficient,networks road,queries top-k,complex queries,networks query sensor", "size": 1},
+      {"name": "efficient queries,computation skyline,algorithm efficient,efficient computation skyline,effective efficient,efficient top-k,networks algorithm,efficient computation,networks efficient,algorithm matching", "size": 1}
+     ]
+   },
+   {
+    "name": "time series,nearest neighbor,objects moving,data time series,mining time series,nearest queries neighbor,linkage record,measures similarity,discovery time series,search nearest neighbor",
+    "children": [
+      {"name": "linkage record,measures similarity,time-series subsequence,similarity measure,distance edit,graph partitioning,distance metric,bipartite graph,metric similarity,matching record", "size": 1},
+      {"name": "objects moving,line drawings,shape shading,objects,motion 3-d,moving,target moving,indexing moving,dynamic objects,shape", "size": 1},
+      {"name": "nearest neighbor,queries objects moving,k-nearest neighbor,files inverted,search nearest neighbor,pruning static,nearest neighbor reverse,neighbor reverse,nearest neighbors,nearest neighbour", "size": 1},
+      {"name": "time series,time warping,dynamic time warping,similarity time,time,time indexing,time series multivariate,similarity time series,matching time series,dynamic time", "size": 1}
+     ]
+   },
+   {
+    "name": "association rules,mining association rules,mining frequent,large scale,mining association,privacy preserving,frequent itemsets,mining patterns,gene expression,data gene expression",
+    "children": [
+      {"name": "association rules,mining association,mining rules,mining association rules,mining association rule,rough set,rough sets,association rule,discovery rules,discovery rough set", "size": 1},
+      {"name": "mining frequent,frequent itemsets,mining patterns,mining pattern,mining frequent itemsets,patterns sequential,patterns frequent,closed frequent,mining patterns sequential,mining closed", "size": 1},
+      {"name": "large scale,gene expression,privacy preserving,data gene expression,large datasets,mining gene expression,data privacy preserving,mining gene,mining positive negative,positive negative", "size": 1},
+      {"name": "graphs large,patterns discovering,discovery pattern,mining graphs,mining associations,discovery frequent,discovering frequent,sets massive,patterns interesting,finding clusters", "size": 1}
+     ]
+   },
+   {
+    "name": "data streams,high dimensional,mining data,data high dimensional,detection outlier,sliding windows,data sets,detection anomaly,event detection,data uncertain",
+    "children": [
+      {"name": "data streams,sliding windows,data stream,window sliding,streams detection,discrete event,data drifting,data streaming,data streams concept-drifting,data streams monitoring", "size": 1},
+      {"name": "detection outlier,detection anomaly,event detection,detection,detection duplicate,data detection,detection intrusion,distance-based outliers,self-organizing maps,data detection outlier", "size": 1},
+      {"name": "high dimensional,data clustering,data high dimensional,data uncertain,data high,data publishing,data clustering high dimensional,data clustering streams,clustering streams,data clustering sets", "size": 1},
+      {"name": "data sets,data high-dimensional,data sets massive,semistructured data,cubes iceberg,data noisy,olap cubes,data microarray,data semi-structured,data cleaning", "size": 1}
+     ]
+   }
+
+   ]
+  },
+  {
+   "name": "learning reinforcement,constraint satisfaction,logic programs,logic programming,problem solving,problems constraint satisfaction,inductive logic programming,transitive closure,logics description,extended abstract",
+   "children": [
+   {
+    "name": "constraint satisfaction,problem solving,problems constraint satisfaction,problems constraint,problems solving,induction constructive,constraints integrity,rule induction,combinatory categorial,context-free grammars",
+    "children": [
+      {"name": "constraint satisfaction,problems solving,problems constraint satisfaction,phase transitions,constraints integrity,local global,problems constraint,checking integrity,problems constraint solving satisfaction,constraint solving", "size": 1},
+      {"name": "combinatory categorial,linear rewriting context-free,context-free grammars,dependency parsing,grammar combinatory categorial,tree grammars adjoining,induction grammar,parsing,linear context-free,grammar combinatory", "size": 1},
+      {"name": "induction constructive,rule induction,decision processes,path planning,utility expected,bottom-up top-down,induction decision,stochastic planning,planning conformant,generating plans", "size": 1},
+      {"name": "problem solving,game playing,differential equations,general game playing,general game,problem solution,problem,optimal strategies,processes solving,optimal solutions", "size": 1}
+     ]
+   },
+   {
+    "name": "logic programming,logic programs,inductive logic programming,logics description,minimum description length principle,theorem proving,belief revision,reasoning qualitative,set programming answer,calculus situation",
+    "children": [
+      {"name": "reasoning default,reasoning qualitative,reasoning case-based,logics nonmonotonic,temporal reasoning,propositional logics,theory qualitative,clauses horn,inheritance nonmonotonic,probabilistic reasoning", "size": 1},
+      {"name": "calculus situation,belief revision,preliminary report,theory practice,relation universal,reasoning calculus situation,belief propagation,reasoning situation,belief reasoning,reasoning calculus", "size": 1},
+      {"name": "logic programming,inductive logic programming,logic programs,set programming answer,logic modal,logic default,probabilistic inference,programs datalog,logic propositional,logic autoepistemic", "size": 1},
+      {"name": "logics description,theorem proving,minimum description length principle,logic description,minimum description length,power expressive,theorem prover,logics description expressive,normal forms,power languages expressive", "size": 1}
+     ]
+   },
+   {
+    "name": "transitive closure,functional dependencies,consistency arc,form normal,dependencies inclusion,combinatorial auctions,computational complexity,qualitative simulation,qualitative quantitative,games coalitional",
+    "children": [
+      {"name": "consistency arc,nash equilibria,games coalitional,weighted consistency,games equilibrium,complexity games,games equilibria,strategy games,infeasibility,payoffs", "size": 1},
+      {"name": "transitive closure,combinatorial auctions,auctions bidding,bounded treewidth,combinatorial auction,auctions,guide,bounded,markets,auction,leveled", "size": 1},
+      {"name": "functional dependencies,dependencies inclusion,quantified boolean,expressions regular,expressions referring,dependencies embedded,functional,expressions,mmac,formalisms", "size": 1},
+      {"name": "form normal,logical form,qualitative simulation,qualitative quantitative,containment conjunctive,computational complexity,computational aspects,relations nested,relations recursive,multi-winner", "size": 1}
+     ]
+   },
+   {
+    "name": "learning reinforcement,partially observable,predictive representations state,decision processes partially observable,temporal difference,processes partially observable,learning temporal difference,learning inductive,diagnosis model-based,decision processes markov observable",
+    "children": [
+      {"name": "lower bounds,lower bound,iteration policy,learning temporal difference,bounds tight,iteration pomdps,agents,pomdps,policy,iteration", "size": 1},
+      {"name": "learning reinforcement,partially observable,processes partially observable,diagnosis model-based,decision processes partially observable,learning partially observable,learning functions,factored mdps,learning reinforcement multi-agent,reinforcement multi-agent", "size": 1},
+      {"name": "concept formation,concept drift,learning explanation-based,formation coalition,learning difference,learning agents,learning examples,learning temporal-difference,learning transfer,learning autonomous", "size": 1},
+      {"name": "predictive representations state,learning robot,annealing simulated,learning predictive representations state,state finite,learning autonomous robot,point fixed,robot,learning predictive representations,domains nondeterministic", "size": 1}
+     ]
+   }
+   ]
+  },
+  {
+   "name": "information retrieval,natural language,machine translation,machine statistical translation,answering question,disambiguation word sense,search web,statistical translation,information extraction,disambiguation sense",
+   "children": [
+   {
+    "name": "information retrieval,answering question,relevance feedback,information extraction,image retrieval,ad hoc,document retrieval,information language retrieval,language retrieval,information retrieval cross-language",
+    "children": [
+      {"name": "information extraction,document retrieval,text retrieval,document collections,study comparative,frequency term,documents relevant,term weighting,structured retrieval,text anchor", "size": 1},
+      {"name": "relevance feedback,feedback implicit,feedback pseudo-relevance,retrieval feedback,relevance retrieval,relevance retrieval feedback,relevance judgments,image retrieval content-based,collection test,collections test", "size": 1},
+      {"name": "information retrieval,ad hoc,libraries digital,information retrieval cross-language,retrieval cross-language,image retrieval,retrieval ad hoc,activation spreading,library digital,models ad hoc", "size": 1},
+      {"name": "answering question,question,summary workshop,answering,retrieval question,answering retrieval question,answer question,answering questions,questions answers,answering question factoid", "size": 1}
+     ]
+   },
+   {
+    "name": "search web,search engine,world web wide,web semantic,web page,web pages,search engines,search results,invited talk,web sites",
+    "children": [
+      {"name": "search web,world web wide,web semantic,search engines,web page,web pages,web sites,focused crawling,search web engines,contextual advertising", "size": 1},
+      {"name": "social media,news articles,preferences selectional,social,product reviews,knowledge domain,recommendation personalized,detecting spam,topic distillation,online news", "size": 1}
+     ]
+   },
+   {
+    "name": "natural language,recognition speech,dialogue spoken,tagging part-of-speech,modeling language,generation natural language,automatic generation,natural language understanding,natural language interface,automatic image annotation",
+    "children": [
+      {"name": "topic modeling,news articles,topic segmentation,topic,automatically,generating summaries,topic distillation,text topic,human modeling,text wikipedia", "size": 1},
+      {"name": "natural language,automatic generation,modeling language,language spoken,text generation,aspect tense,recognition language,natural language interface,language understanding spoken,language speech", "size": 1},
+      {"name": "dialogue spoken,interaction human-robot,systems dialogue spoken,conversational speech,speech spontaneous,student tutoring,dialogue,speech acts,features dialogue,dialog spoken", "size": 1},
+      {"name": "recognition speech,tagging part-of-speech,automatic recognition speech,recognition activity,biomedical literature,visual recognition,automatic speech,text automatic,automatic annotation,automatic recognition", "size": 1}
+     ]
+   },
+   {
+    "name": "machine translation,machine statistical translation,disambiguation word sense,statistical translation,named entity,disambiguation sense,word sense,named recognition entity,semantic labeling role,dependency parsing",
+    "children": [
+      {"name": "disambiguation word sense,disambiguation sense,word sense,semantic labeling role,semantic role,word alignment,word segmentation,common sense,chinese word segmentation,words unknown", "size": 1},
+      {"name": "dependency parsing,dependency,parsing,english,dependency parsers,parser,dependency japanese,corpus-based,german,capturing", "size": 1},
+      {"name": "machine translation,machine statistical translation,statistical translation,phrases noun,translation phrase-based,phrase noun,machine statistical translation phrase-based,statistical phrase-based,translation cross-language,statistical translation phrase-based", "size": 1},
+      {"name": "named entity,knowledge acquisition,named recognition entity,named entities,correction spelling,corpora comparable,corpora bilingual,knowledge domain,corpora bilingual comparable,named entity transliteration", "size": 1}
+     ]
+   }
+   ]
+  }
+ ]
+}

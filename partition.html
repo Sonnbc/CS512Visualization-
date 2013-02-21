@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="d3/d3.layout.js"></script>
+    <style type="text/css">
+
+.chart {
+  display: block;
+  margin: auto;
+  margin-top: 100px;
+  font-size: 12px;
+}
+
+rect {
+  stroke: #eee;
+  fill: #aaa;
+  fill-opacity: .8;
+}
+
+circle {
+  stroke: #eee;
+  fill: #aaa;
+  fill-opacity: .8;
+}
+
+rect.parent {
+  cursor: pointer;
+  fill: steelblue;
+}
+
+text {
+  pointer-events: none;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="body">
+      <div id="header">
+        Computer Science Topic Hierarchy
+        <div class="hint">click or option-click to descend or ascend</div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+var w = 1200,
+    h = 800,
+    x = d3.scale.linear().domain([0,1]).range([0, w]),
+    y = d3.scale.linear().domain([0,1]).range([0, h]);
+	
+	
+var vis = d3.select("#body").append("div")
+    .attr("class", "chart")
+    .style("width", w + "px")
+    .style("height", h + "px")
+	.append("svg:svg")
+    .attr("width", w)
+    .attr("height", h);
+
+var partition = d3.layout.partition()
+    .value(function(d) { console.log(d); return 1; });
+
+d3.json("./dblp.json", function(root) {
+	console.log(root);
+	
+	var g = vis.selectAll("g")
+		.data(partition.nodes(root))
+		.enter().append("svg:g")
+		.attr("transform", function(d) { 
+			return "translate(" + x(d.y) + "," + y(d.x) + ")"; 
+		})
+		;//.on("click", click);
+	
+	var //kx = w / root.dx,
+        ky = h / 1;
+		
+	console.log(root.dx + " " + root.dy);
+	
+	var a = g.append("svg:rect")
+		.attr("width", function(d) {return x(d.dy);})
+		.attr("height", function(d) { return y(d.dx); })
+		.attr("class", function(d) { return d.children ? "parent" : "child"; })
+		.attr("text", function(d){ 
+			if (d.name.length < 40) return d.name;
+			else return d.name.slice(0,39) + "..."});
+
+	var b = g.append("svg:text")
+		.attr("transform", transform2)
+		.attr("dy", function(d){return ".35em"})
+      //.style("opacity", function(d) { return d.dx * ky > 12 ? 1 : 0; })
+	 .style("opacity", function(d) { return opacityChange(d,ky);})
+      //.text(function(d) {return d.name; })
+
+
+	for(var i=0; i<7;i++){
+			b.append("svg:tspan")
+					.attr("transform", transform)
+			      .attr("dy", function(d) { 
+							var name = d.name; 
+							var nameSplit = name.split(",");
+							if(i>=nameSplit.length || nameSplit[i].length==0){
+								return "";
+							}else{
+								if(i==0){
+									return (((nameSplit.length-1)*1.35*-1)+0.35)+"em";
+								}
+								return "1.35em"; 
+							}
+					})
+			      .attr("x", "0em")
+			      .style("font-weight", function(d) { return "bold"; })
+			      //.style("fill", function(d) { return "red"; })
+			      .text(function(d) { 
+						//var name = d.name.length < 40 ? d.name : d.name.slice(0, 39) + ",..." ; 
+						var name = d.name;
+						console.log(name);
+						var nameSplit = name.split(",");
+						if(i>=nameSplit.length || nameSplit[i].length==0){
+							return "";
+						}else{
+							return nameSplit[i]; 
+						}
+					});
+	}
+
+
+	for(var i=0; i<a[0].length; i++){
+		var element = a[0][i];
+		var nodeText = element.getAttribute("text");
+		var nodeTextArr=nodeText.split(",");
+		//console.log(nodeTextArr);
+		
+
+		
+		
+	}
+	 
+
+var keys = Object.keys(a[0][0]);
+
+
+
+  d3.select(window)
+      .on("click", function() { click(root); })
+
+  function click(d) {
+    if (!d.children) return;
+
+    kx = (d.y ? w - 40 : w) / (1 - d.y);
+    ky = h / d.dx;
+    x.domain([d.y, 1]).range([d.y ? 40 : 0, w]);
+    y.domain([d.x, d.x + d.dx]);
+
+    var t = g.transition()
+        .duration(d3.event.altKey ? 7500 : 750)
+        .attr("transform", function(d) { return "translate(" + x(d.y) + "," + y(d.x) + ")"; });
+
+    t.select("rect")
+        .attr("width", d.dy * kx)
+        .attr("height", function(d) { return d.dx * ky; });
+
+    t.select("text")
+        .attr("transform", transform2)
+        .style("opacity", function(d) { return opacityChange(d,ky);});
+
+    d3.event.stopPropagation();
+  }
+
+  function transform(d) {
+    return "translate(8," + d.dx * ky / 2 + ")";
+  }
+
+  function transform2(d) {
+    return "translate(8," + (d.dx * ky ) + ")";
+  }
+
+});
+
+function opacityChange(d,ky){
+	var name = d.name; 
+	var nameSplit = name.split(",");
+	var step1 = d.dx*nameSplit.length;
+	var step2 = d.dx*nameSplit.length* ky;
+	return d.dx* ky > 12*nameSplit.length ? 1 : 0;
+	
+	//return 1;
+}
+
+    </script>
+  </body>
+</html>
