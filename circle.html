@@ -81,8 +81,8 @@ function renderFooter(d) {
 		
 function visualize(num_of_phrases){
 	var w = 1280,
-		h = 800,
-		r = 720,
+		h = 1050,
+		r = 1000,
 		x = d3.scale.linear().range([0, r]),
 		y = d3.scale.linear().range([0, r]),
 		node,
@@ -137,7 +137,7 @@ function visualize(num_of_phrases){
 			for(var i=0; i<num_of_phrases;i++){
 				svgtxt.append("svg:tspan")
 					.attr('x', function(d){return d.x})
-					.attr('dy','1em')
+					.attr('dy','1.3em')
 					  .style("font-weight", function(d) { return "bold"; })
 					  //.style("fill", function(d) { return "red"; })
 					  .text(function(d) { 
@@ -158,6 +158,7 @@ function visualize(num_of_phrases){
 	function zoom(d, i) {
 		current = d.depth;
 		renderFooter(d);
+		current = d.depth;
 		var k = r / d.r / 2;
 		x.domain([d.x - d.r, d.x + d.r]);
 		y.domain([d.y - d.r, d.y + d.r]);
@@ -172,7 +173,7 @@ function visualize(num_of_phrases){
 
 		t.selectAll("text")
 			.attr("x", function(d) { return x(d.x); })
-			.attr("y", function(d) { return y(d.y)-d.r/2; })
+			.attr("y", function(d) { return y(d.y); })
 			.style("opacity", function(d) { 
 				//return k * d.r > 20 ? 1 : 0; 
 				return d.depth == current + 1 ? 1 : 0;
@@ -181,6 +182,7 @@ function visualize(num_of_phrases){
 			.attr("x", function(d){ return x(d.x)});
 		node = d;
 		d3.event.stopPropagation();
+
 	}
 }
 
