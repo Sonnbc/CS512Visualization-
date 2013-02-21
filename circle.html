@@ -66,8 +66,8 @@ visualize(4);
 $('#phrases').change(function(){d3.select("svg").remove(); visualize($(this).val())});
 function visualize(num_of_phrases){
 	var w = 1280,
-		h = 800,
-		r = 720,
+		h = 1200,
+		r = 1000,
 		x = d3.scale.linear().range([0, r]),
 		y = d3.scale.linear().range([0, r]),
 		node,
@@ -111,7 +111,7 @@ function visualize(num_of_phrases){
 	  var svgtxt = group.append("svg:text")
 		  .attr("class", function(d) { return d.children ? "parent" : "child"; })
 			.attr("x", function(d) {return d.x-d.w; })
-			.attr("y", function(d) {return d.y-d.r/2; })
+			.attr("y", function(d) {return d.y; })
 		  //.attr("dy", ".35em")
 		  .attr("text-anchor", "middle")
 		  .style("opacity", function(d) { 
@@ -155,7 +155,7 @@ function visualize(num_of_phrases){
 
 	  t.selectAll("text")
 		  .attr("x", function(d) { return x(d.x); })
-		  .attr("y", function(d) { return y(d.y)-d.r/2; })
+		  .attr("y", function(d) { return y(d.y); })
 		  .style("opacity", function(d) { 
 			 //return k * d.r > 20 ? 1 : 0; 
 			return d.depth == current + 1 ? 1 : 0;
