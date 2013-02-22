@@ -75,6 +75,7 @@ function renderFooter(d) {
 	var nameSplit = name.split(",");
 	$("#footer div").html("");
 	for (var i in nameSplit) {
+		if(i>7) break;
 		$("#footer div").append(nameSplit[i] + "</br>");
 	}
 }
