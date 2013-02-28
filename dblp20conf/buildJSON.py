@@ -35,8 +35,9 @@ def processMidLevel(filename, midlvl):
 		midlvl['children'].append(childnode)
 	
 if __name__ == '__main__':
-	f = open('filename.txt','r')
-	outfile = open('dblp.json','w')
+	'''
+	f = open('filenamekmeans.txt','r')
+	outfile = open('kmeansData.json','w')
 	for line in f:
 		line = line.replace('\n','')
 		if line[0]=='_': #top level
@@ -50,4 +51,17 @@ if __name__ == '__main__':
 			leaf = processLeaf(line)
 			toplvl['children'][midNode]['children'][leafNode]['children'].extend(leaf)
 	outfile.write(json.dumps(toplvl))
+	'''
+	f = open('filenamehpam.txt','r')
+	outfile = open('hpamData.json','w')
+	for line in f:
+		line = line.replace('\n','')
+		if line[0]=='_':# top level
+			toplvl = processTopLevel(line)
+		else:# leaf
+			leafNode = int(line[1])-1
+			leaf = processLeaf(line)
+			toplvl['children'][leafNode]['children'].extend(leaf)
+	outfile.write(json.dumps(toplvl))
+			
 			
