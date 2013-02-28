@@ -46,19 +46,22 @@ circle.child {
         Computer Science Topic Hierarchy
         <div class="hint">click or option-click to descend or ascend</div>
 		<div class="hint">
-		<p>Choose Number of phrases Here 
+		<p>Choose Number of phrases and data to visualize</p>
 		<select id='phrases'>
 			<option value="4">4 phrases</option>
 			<option value="5">5 phrases</option>
 			<option value="6">6 phrases</option>
 			<option value="7">7 phrases</option>
 		</select>
+		<select id='filename'>
+			<option value="hpamData.json">hpam data</option>
+			<option value="kmeansData.json">speclus data</option>
+			<option value="ngramData.json">ngram data</option>
 		</div>
       </div>
 	  
 	  <div id="footer">
 		<h1> Current category:</h1>
-		<div/> 
 	  </div>
 	  
     </div>
@@ -67,20 +70,13 @@ circle.child {
 	<script type="text/javascript" src="jquery.js"></script>
 	
     <script type="text/javascript">
-visualize(4);
-$('#phrases').change(function(){d3.select("svg").remove(); visualize($(this).val())});
+visualize(4, 'hpamData.json');
+$('#phrases').change(function(){d3.select("svg").remove(); visualize($(this).val(),$('#filename').find(":selected").val())});
+$('#filename').change(function(){d3.select("svg").remove(); visualize($('#phrases').find(":selected").val(),$(this).val())});
 
-function renderFooter(d) {
-	var name = d.name; 
-	var nameSplit = name.split(",");
-	$("#footer div").html("");
-	for (var i in nameSplit) {
-		if(i>7) break;
-		$("#footer div").append(nameSplit[i] + "</br>");
-	}
-}
+
 		
-function visualize(num_of_phrases){
+function visualize(num_of_phrases, filename){
 	var w = 1280,
 		h = 1050,
 		r = 1000,
@@ -101,10 +97,10 @@ function visualize(num_of_phrases){
 		.attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
     
 	var current = 0;
-	d3.json("dblp.json", function(data) {
+	d3.json(filename, function(data) {
 		node = root = data;
 		
-		renderFooter(root);
+		renderFooter(root,num_of_phrases);
 		var nodes = pack.nodes(root);
 		
 		var group = vis.selectAll("g")
@@ -158,7 +154,7 @@ function visualize(num_of_phrases){
 
 	function zoom(d, i) {
 		current = d.depth;
-		renderFooter(d);
+		renderFooter(d,num_of_phrases);
 		current = d.depth;
 		var k = r / d.r / 2;
 		x.domain([d.x - d.r, d.x + d.r]);
@@ -185,6 +181,15 @@ function visualize(num_of_phrases){
 		d3.event.stopPropagation();
 
 	}
+	function renderFooter(d, num_of_phrases) {
+	var name = d.name; 
+	var nameSplit = name.split(",");
+	$("#footer div").html("");
+	for (var i in nameSplit) {
+		if(i>num_of_phrases) break;
+		$("#footer div").append(nameSplit[i] + "</br>");
+	}
+}
 }
 
     </script>
