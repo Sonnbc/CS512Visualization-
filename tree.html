@@ -5,6 +5,7 @@
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
+	<link href="./menu_assets/styles.css" rel="stylesheet" type="text/css">
     <style type="text/css">
 
 
@@ -28,6 +29,19 @@ path.link {
     </style>
   </head>
   <body>
+    <div id='cssmenu'>
+<ul>
+   <li class='active '><a href='index.html'><span>Home</span></a></li>
+   <li><a href='#'><span>Browse</span></a></li>
+   <li class='has-sub '><a href='#'><span>Search</span></a>
+      <ul>
+         <li><a href='#'><span>Topical Search</span></a></li>
+         <li><a href='#'><span>Related Entity Search</span></a></li>
+      </ul>
+   </li>
+   <li><a href='#'><span>About</span></a></li>
+</ul>
+</div>
     <div id="body">
       <div id="footer">
         <div class="hint">click or option-click to expand or collapse</div>
@@ -99,7 +113,7 @@ function update(source) {
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
   //display text	  
-  /*nodeEnter.append("svg:text")
+  nodeEnter.append("svg:text")
       //.attr("x", function(d) { return d.children || d._children ? -10 : 10; })
 	  .attr("x", function(d) {return d.children || d._children? 28 : 7;})
 	  .attr("y", function(d) {return d.children || d._children? -15 : 0;})
@@ -140,7 +154,7 @@ function update(source) {
 			if (i == 0) return d.name;
 			return a[3] + ", " + a[4] ;
 	    })
-      .style("fill-opacity", 1);*/	 
+      .style("fill-opacity", 1);	 
 	  
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -214,5 +228,6 @@ function toggle(d) {
 }
 
     </script>
+	
   </body>
 </html>
