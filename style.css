@@ -40,8 +40,8 @@ body {
 
 #footer {
   bottom: 20px;
-  position:fixed;
   right: 140px;
+  position:fixed;
   text-align: left;
   font-size: 20px;
 }

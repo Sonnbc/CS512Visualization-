@@ -188,7 +188,7 @@ function visualize(num_of_phrases, filename){
 	var nameSplit = name.split(",");
 	$("#footer div").html("");
 	for (var i in nameSplit) {
-		if(i>num_of_phrases) break;
+		if(i>=num_of_phrases) break;
 		$("#footer div").append(nameSplit[i] + "</br>");
 	}
 }
