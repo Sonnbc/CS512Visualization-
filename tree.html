@@ -37,8 +37,8 @@ path.link {
     <script type="text/javascript">
 
 var m = [20, 120, 20, 120],
-    w = 1280 - m[1] - m[3],
-    h = 800 - m[0] - m[2],
+    w = 500- m[1] - m[3],
+    h = 500 - m[0] - m[2],
     i = 0,
     root;
 
@@ -54,7 +54,7 @@ var vis = d3.select("#body").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-d3.json("dblp.json", function(json) {
+d3.json("ngramData.json", function(json) {
   root = json;
   root.x0 = h / 2;
   root.y0 = 0;
@@ -83,7 +83,7 @@ function update(source) {
   var nodes = tree.nodes(root).reverse();
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) { d.y = d.depth * 50; });
 
   // Update the nodes…
   var node = vis.selectAll("g.node")
