@@ -11,10 +11,11 @@ var miniW = 200,
 	//miniRadius = 2;
 	
 var zoomFactor = 10,
-	zoomWindow = {w: bigW / zoomFactor, h: bigH / zoomFactor},
+	zoomWindow = {},
+	lastZoom = {};
 	scaleX = d3.scale.linear().range([0, bigH]),
 	scaleY = d3.scale.linear().range([0, bigW]);
-
+	
 var tree = d3.layout.tree().size([miniH, miniW]);
 
 	
@@ -31,10 +32,9 @@ d3.select("#mainview").selectAll("svg")
 var mini = d3.select("#mini");
 var big = d3.select("#big");
 
-
 //create the zoom window in mini SVG
-var myWindow = mini.append("svg:rect").attr("id", "window")
-	.attr("width", zoomWindow.w).attr("height", zoomWindow.h)
+var myWindow = mini.append("svg:rect").attr("id", "window");
+		
 
 //listen to mouse click on mini SVG
 mini.on("click", 
@@ -45,15 +45,19 @@ mini.on("click",
 	});
 	
 //listen to mousewheel on big SVG
-//$("#big").on("mousewheel",
-//	function(e, delta) {console.log(e); console.log(delta);});
-/*big.on("mousewheel",
+
+big.on("mousewheel",
 	function() {
 		d3.event.preventDefault();
-		if (d3.event.wheelDelta > 0) {
-			zoomFactor = var delta = console.log(d3.event);
-		console.log(d3.svg.mouse(this));
-	});*/
+		factor = d3.event.wheelDelta > 0 ? 
+			Math.min(20, zoomFactor + 2) : Math.max(6, zoomFactor - 2);
+		
+		console.log(myWindow.attr("x"));
+		changeZoomWindow(factor);
+		zoom(lastZoom.x, lastZoom.y);
+	});
+
+render();
 
 function render() {
 
@@ -79,16 +83,27 @@ function render() {
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
 			.attr("r", function(d) {return (5.25-d.depth)*zoomFactor;});
 		
+		changeZoomWindow(zoomFactor);
 		zoom(miniW/2, miniH/2);	
+		
 	});
 }
+
+function changeZoomWindow(factor) {
+	zoomFactor = factor;
+	zoomWindow = {w: bigW / zoomFactor, h: bigH / zoomFactor};
+	myWindow.attr("width", zoomWindow.w).attr("height", zoomWindow.h);
+}
+		
+function zoom(px, py) {
+	lastZoom.x = px;
+	lastZoom.y = py;
 	
-function zoom(py, px) {
-	myWindow.attr("x", py - zoomWindow.w/2).attr("y", px - zoomWindow.h/2);
+	myWindow.attr("x", px - zoomWindow.w/2).attr("y", py - zoomWindow.h/2);
 	
 	var big = d3.select("#big");
-	scaleX.domain([px - zoomWindow.h/2, px + zoomWindow.h/2]);
-	scaleY.domain([py - zoomWindow.w/2, py + zoomWindow.w/2]);
+	scaleX.domain([py - zoomWindow.h/2, py + zoomWindow.h/2]);
+	scaleY.domain([px - zoomWindow.w/2, px + zoomWindow.w/2]);
 	var diagonal = d3.svg.diagonal().projection(function(d) { return [scaleY(d.y), scaleX(d.x)]; });
 
 	big.selectAll("circle")
@@ -97,7 +112,7 @@ function zoom(py, px) {
 	big.selectAll("path").attr("d", diagonal);
 }
 
-render();
+
 
 
 });
