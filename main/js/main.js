@@ -45,14 +45,11 @@ mini.on("click",
 	});
 	
 //listen to mousewheel on big SVG
-
 big.on("mousewheel",
 	function() {
 		d3.event.preventDefault();
 		factor = d3.event.wheelDelta > 0 ? 
 			Math.min(20, zoomFactor + 2) : Math.max(6, zoomFactor - 2);
-		
-		console.log(myWindow.attr("x"));
 		changeZoomWindow(factor);
 		zoom(lastZoom.x, lastZoom.y);
 	});
