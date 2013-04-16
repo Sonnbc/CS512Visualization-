@@ -137,6 +137,7 @@ function changeZoomWindow(factor) {
 }
 		
 function zoom(px, py) {
+	if (px < 0 || px > miniW || py < 0 || py > miniH) return;
 	lastZoom.x = px;
 	lastZoom.y = py;
 
