@@ -55,17 +55,16 @@ big.on("mousewheel",
 $("#big").mousemove(
 	function(e) {
 		e.preventDefault();
-		if (e.which === 0) return;
-		var drag = {x:e.pageX, y:e.pageY};
-		if (lastDrag === undefined) {
-			lastDrag = drag; return;
+		if (e.which === 0 || lastDrag === undefined) {
+			lastDrag = {x:e.pageX, y:e.pageY}; return;
 		}
+		var drag = {x:e.pageX, y:e.pageY};
+		
 		var dx = (drag.x - lastDrag.x) / zoomFactor;
 		var dy = (drag.y - lastDrag.y) / zoomFactor;
-		console.log(dx, dy);
+
 		//if (Math.abs(dx) < 1 && Math.abs(dy) < 2) return;
 		lastDrag = drag;
-		
 		zoom(lastZoom.x - dx, lastZoom.y - dy);
 	});
 
@@ -140,7 +139,7 @@ function changeZoomWindow(factor) {
 function zoom(px, py) {
 	lastZoom.x = px;
 	lastZoom.y = py;
-	
+
 	myWindow.attr("x", px - zoomWindow.w/2).attr("y", py - zoomWindow.h/2);
 	
 	var big = d3.select("#big");
@@ -160,15 +159,6 @@ function zoom(px, py) {
 	big.selectAll("path").attr("d", diagonal);
 }
 
-function dragmove(d) {
-	var drag = d3.svg.mouse(this);
-	if (lastDrag.length !== 0) {
-		var x = (drag[0] - lastDrag[0]) / zoomFactor;
-		var y = (drag[1] - lastDrag[1]) / zoomFactor;
-		console.log(x,y);
-	}
-	lastDrag = drag;
-}
 
 
 
