@@ -1,9 +1,3 @@
-var dataset = 
-	[{x:25, y:25, r:22, color:"blue"}, {x:75, y:25, r:22, color:"red"},
-	{x:90, y:290, r:34, color:"grey"}, {x:100, y:300, r:5, color:"black"},
-	{x:190, y:290, r:34, color:"yellow"}, {x:170, y:500, r:15, color:"steelblue"},
-	{x:50, y:400, r:34, color:"orange"}, {x:160, y:360, r:60, color:"brown"},
-	];
 var miniW = 200,
 	bigW = 1000,
 	miniH = 850,
@@ -16,9 +10,12 @@ var zoomFactor = 10,
 	lastZoom = {};
 	scaleX = d3.scale.linear().range([0, bigH]),
 	scaleY = d3.scale.linear().range([0, bigW]);
+
 	
 var tree = d3.layout.tree().size([miniH, miniW]);
 
+
+var	lastDrag;
 	
 $(document).ready(function(){
 
@@ -54,7 +51,23 @@ big.on("mousewheel",
 		changeZoomWindow(factor);
 		zoom(lastZoom.x, lastZoom.y);
 	});
+	
+$("#big").mousemove(
+	function(e) {
+		e.preventDefault();
+		if (e.which === 0) return;
+		var drag = {x:e.pageX, y:e.pageY};
+		if (lastDrag === undefined) {
+			lastDrag = drag; return;
+		}
+		var dx = (drag.x - lastDrag.x) / zoomFactor;
+		var dy = (drag.y - lastDrag.y) / zoomFactor;
+		console.log(dx, dy);
+		//if (Math.abs(dx) < 1 && Math.abs(dy) < 2) return;
+		lastDrag = drag;
 		
+		zoom(lastZoom.x - dx, lastZoom.y - dy);
+	});
 
 render();
 
@@ -147,6 +160,15 @@ function zoom(px, py) {
 	big.selectAll("path").attr("d", diagonal);
 }
 
+function dragmove(d) {
+	var drag = d3.svg.mouse(this);
+	if (lastDrag.length !== 0) {
+		var x = (drag[0] - lastDrag[0]) / zoomFactor;
+		var y = (drag[1] - lastDrag[1]) / zoomFactor;
+		console.log(x,y);
+	}
+	lastDrag = drag;
+}
 
 
 
