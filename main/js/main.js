@@ -24,7 +24,7 @@ $(document).ready(function(){
 
 //create one big SVG and one mini SVG
 var dsvg = [{w:miniW, h:miniH, id:"mini"}, {w:bigW, h:bigH, id:"big"}];
-d3.select("#mainview").selectAll("svg")
+d3.select("#visualization").selectAll("svg")
 	.data(dsvg).enter().append("svg:svg")
 	.attr("width", function(d) {return d.w;})
 	.attr("height", function(d) {return d.h;})
@@ -54,6 +54,7 @@ big.on("mousewheel",
 		changeZoomWindow(factor);
 		zoom(lastZoom.x, lastZoom.y);
 	});
+		
 
 render();
 
@@ -61,11 +62,13 @@ function render() {
 
 	d3.json("dataGen/data.json", function(data) {
 		var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
-		
 		var layoutData = tree.nodes(data).reverse();
 		
 		//fixed depth. TODO: change to fit different datasets
 		layoutData.forEach(function (d) { d.y = 10 + d.depth * 40; });
+		//append id to data
+		var i = 0;
+		layoutData.forEach(function (d) { d._id = i++; });
 		
 		mini.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
@@ -73,7 +76,9 @@ function render() {
 		mini.selectAll("circle").data(layoutData).enter()
 			.append("svg:circle")
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
-			.attr("r", miniRadius);
+			.attr("r", miniRadius)
+			.attr("class", "node")
+			.attr("data-id", function(d) {return d._id;});
 			
 		big.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
@@ -84,9 +89,21 @@ function render() {
 		var g = big.selectAll("g").data(layoutData).enter()
 			.append("svg:g")
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";});
-		g.append("svg:circle")
-			.attr("r", bigRadius);
 		
+		//populate the detail view when a circle is clicked
+		g.append("svg:circle")
+			.attr("r", bigRadius)
+			.attr("class", "node")
+			.attr("data-id", function(d) {return d._id;})
+			.on("click", function(d) {
+				d3.select("#phrases").text(d.phrases.split(",").join(", "));
+				d3.select("#authors").text(d.authors.split(",").join(", "));
+				d3.select("#conferences").text(d.conferences.split(",").join(", "));
+				
+				d3.selectAll(".selectedNode").attr("class", "node");
+				d3.selectAll("[data-id=\"" + d._id + "\"]").attr("class", "selectedNode");
+			});
+				
 		g.append("svg:text")
 			.attr("text-anchor", function(d) {return d.children? "middle" : "start"; })
 			.text(function(d) {
@@ -94,7 +111,7 @@ function render() {
 				if (a.length === 1) return d.phrases;
 				return a.slice(0, 4).join(", ");
 			});
-		
+			
 		changeZoomWindow(zoomFactor);
 		zoom(miniW/2, miniH/2);	
 		
@@ -122,8 +139,8 @@ function zoom(px, py) {
 		.attr("transform", 
 			function(d) {return "translate(" + scaleY(d.y) + "," + scaleX(d.x) + ")";});
 	big.selectAll("text")
-		.attr("x", function(d) {return d.children? 0 : bigRadius(d) + 5;})
-		.attr("y", function(d) {return d.children? - bigRadius(d) - 5 : 0;});
+		.attr("x", function(d) {return d.children? 0 : bigRadius(d) + 4;})
+		.attr("y", function(d) {return d.children? - bigRadius(d) - 4 : 4;});
 		
 	big.selectAll("circle")
 		.attr("r", bigRadius);
