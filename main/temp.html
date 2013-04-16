@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Amethyst</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" href="style.css"/>
+	<link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap.min.css"/>	
 </head>
 <body>
-	<p> asdasd </p>
+	<h2 id="title"> Analyzing, Mining, and Exploring a Topical HierarchY SysTem </h2>
+	<div id="mainmenu" class="btn-toolbar">
+			<button class="btn btn-primary">Home</button>
+			<button class="btn btn-primary">Load</button>
+			<button class="btn btn-primary">Browse</button>
+			<div class="btn-group">
+				<button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+					Search
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Topic Search</a></li>
+					<li><a href="#">Related Entity Search</a></li>
+				</ul>
+			</div>
+			<button class="btn btn-primary">About</button>
+	</div>
+	
 	<div id="mainview"></div>
+	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/d3/d3.js"></script>
     <script type="text/javascript" src="js/d3/d3.layout.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>

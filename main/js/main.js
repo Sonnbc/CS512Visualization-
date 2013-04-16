@@ -8,7 +8,8 @@ var miniW = 200,
 	bigW = 1000,
 	miniH = 850,
 	bigH = 850;
-	//miniRadius = 2;
+	miniRadius = function(d) {return 5.25 - d.depth;};
+	bigRadius = function(d) {return (5.25 - d.depth)*zoomFactor;};
 	
 var zoomFactor = 10,
 	zoomWindow = {},
@@ -63,6 +64,7 @@ function render() {
 		
 		var layoutData = tree.nodes(data).reverse();
 		
+		//fixed depth. TODO: change to fit different datasets
 		layoutData.forEach(function (d) { d.y = 10 + d.depth * 40; });
 		
 		mini.selectAll("path").data(tree.links(layoutData)).enter()
@@ -71,14 +73,27 @@ function render() {
 		mini.selectAll("circle").data(layoutData).enter()
 			.append("svg:circle")
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
-			.attr("r", function(d) {return 5.25-d.depth;});
+			.attr("r", miniRadius);
 			
 		big.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
-		big.selectAll("circle").data(layoutData).enter()
+		/*big.selectAll("circle").data(layoutData).enter()
 			.append("svg:circle")
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
-			.attr("r", function(d) {return (5.25-d.depth)*zoomFactor;});
+			.attr("r", function(d) {return (5.25-d.depth)*zoomFactor;});*/
+		var g = big.selectAll("g").data(layoutData).enter()
+			.append("svg:g")
+			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";});
+		g.append("svg:circle")
+			.attr("r", bigRadius);
+		
+		g.append("svg:text")
+			.attr("text-anchor", function(d) {return d.children? "middle" : "start"; })
+			.text(function(d) {
+				var a = d.phrases.split(',');
+				if (a.length === 1) return d.phrases;
+				return a.slice(0, 4).join(", ");
+			});
 		
 		changeZoomWindow(zoomFactor);
 		zoom(miniW/2, miniH/2);	
@@ -103,9 +118,15 @@ function zoom(px, py) {
 	scaleY.domain([px - zoomWindow.w/2, px + zoomWindow.w/2]);
 	var diagonal = d3.svg.diagonal().projection(function(d) { return [scaleY(d.y), scaleX(d.x)]; });
 
-	big.selectAll("circle")
+	big.selectAll("g")
 		.attr("transform", 
 			function(d) {return "translate(" + scaleY(d.y) + "," + scaleX(d.x) + ")";});
+	big.selectAll("text")
+		.attr("x", function(d) {return d.children? 0 : bigRadius(d) + 5;})
+		.attr("y", function(d) {return d.children? - bigRadius(d) - 5 : 0;});
+		
+	big.selectAll("circle")
+		.attr("r", bigRadius);
 	big.selectAll("path").attr("d", diagonal);
 }
 
