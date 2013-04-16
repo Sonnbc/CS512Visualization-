@@ -1,11 +1,6 @@
 body {
 	padding: 20px 50px 0px 50px;
 }
-#mainview {
-	position:relative;
-	top:30px;
-	float:left;
-}
 
 #title {
 	float:left;
@@ -13,6 +8,26 @@ body {
 }
 #mainmenu {
 	top:20px;
+	float:right;
+}
+
+#mainview {
+	position:relative;
+	top:20px;
+	width:inherit;
+}
+
+#visualization {
+	position:relative;
+	float:left;
+}
+
+#leftpanel {
+	float:right;
+	width:300px;
+}
+
+#detailview {
 	float:right;
 }
 svg {
@@ -32,16 +47,22 @@ svg {
 	fill-opacity:0.0;
 }
 
-#mini circle, #big circle {
+
+
+.node {
 	fill: #fff;
 	stroke: steelblue;
 }
 
-#mini circle {
+.selectedNode {
+	fill:steelblue;
+}
+
+#mini .node {
 	stroke-width: 0.5px;
 }
 
-#big circle {
+#big .node {
 	stroke-width: 2px;
 }
 
@@ -50,6 +71,8 @@ svg {
 	stroke: #ccc;
 	stroke-width: 1.5px;
 }
+
+
 
 
 

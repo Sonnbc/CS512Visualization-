@@ -7,25 +7,49 @@
 	<link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap.min.css"/>	
 </head>
 <body>
-	<h2 id="title"> Analyzing, Mining, and Exploring a Topical HierarchY SysTem </h2>
-	<div id="mainmenu" class="btn-toolbar">
-			<button class="btn btn-primary">Home</button>
-			<button class="btn btn-primary">Load</button>
-			<button class="btn btn-primary">Browse</button>
-			<div class="btn-group">
-				<button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
-					Search
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">Topic Search</a></li>
-					<li><a href="#">Related Entity Search</a></li>
-				</ul>
-			</div>
-			<button class="btn btn-primary">About</button>
+	<div id="title" class-"page-header"> 
+		<h1>AMETHYST 
+			<small>Analyzing, Mining, and Exploring a Topical HierarchY SysTem </small>
+		</h1>
 	</div>
 	
-	<div id="mainview"></div>
+	<div id="mainmenu" class="btn-toolbar">
+		<button class="btn btn-primary">Home</button>
+		<button class="btn btn-primary">Load</button>
+		<button class="btn btn-primary">Browse</button>
+		<div class="btn-group">
+			<button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+				Search
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#">Topic Search</a></li>
+				<li><a href="#">Related Entity Search</a></li>
+			</ul>
+		</div>
+		<button class="btn btn-primary">About</button>
+	</div>
+	
+	<div id="mainview">
+		<div id="visualization"></div>
+		
+		<div id="leftpanel">
+			<div class="tabbable"> 
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#phrases" data-toggle="tab">Phrases</a></li>
+					<li><a href="#authors" data-toggle="tab">Authors</a></li>
+					<li><a href="#conferences" data-toggle="tab">Conferences</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="phrases"></div>
+					<div class="tab-pane" id="authors"></div>
+					<div class="tab-pane" id="conferences"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
