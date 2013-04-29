@@ -11,13 +11,48 @@ var zoomFactor = 10,
 	scaleX = d3.scale.linear().range([0, bigH]),
 	scaleY = d3.scale.linear().range([0, bigW]);
 
-	
 var tree = d3.layout.tree().size([miniH, miniW]);
 
-
 var	lastDrag;
+
+var autoCompleteTags = [];
 	
 $(document).ready(function(){
+
+//configure the main menu and the search form
+$('#query-input').hide();
+$('#search-items').on("click", function() {$('#query-input').show();});
+$('#browse-btn').on("click", function() {$('#query-input').hide();});
+$('#query-text')
+	.bind("keydown", function(event) {
+		if (event.keyCode === $.ui.keyCode.TAB &&
+			$(this).data("ui-autocomplete").menu.active) {
+			event.preventDefault();
+		}
+	})
+	.autocomplete({
+		minLength: 0,
+		source: function(request, response) {
+			// delegate back to autocomplete, but extract the last term
+			response($.ui.autocomplete.filter(
+				autoCompleteTags, request.term.split(/,\s*/).pop()) );
+		},
+		focus: function() {
+			// prevent value inserted on focus
+			return false;
+		},
+		select: function(event, ui) {
+			var terms = this.value.split(/,\s*/);
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push(ui.item.value);
+			// add placeholder to get the comma-and-space at the end
+			terms.push("");
+			this.value = terms.join(", ");
+			return false;
+		}
+	});
 
 //create one big SVG and one mini SVG
 var dsvg = [{w:miniW, h:miniH, id:"mini"}, {w:bigW, h:bigH, id:"big"}];
@@ -51,7 +86,8 @@ big.on("mousewheel",
 		changeZoomWindow(factor);
 		zoom(lastZoom.x, lastZoom.y);
 	});
-	
+
+//enable dragging around the big view	
 $("#big").mousemove(
 	function(e) {
 		e.preventDefault();
@@ -68,6 +104,8 @@ $("#big").mousemove(
 		zoom(lastZoom.x - dx, lastZoom.y - dy);
 	});
 
+//set the main menu
+	
 render();
 
 function render() {
@@ -94,10 +132,7 @@ function render() {
 			
 		big.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
-		/*big.selectAll("circle").data(layoutData).enter()
-			.append("svg:circle")
-			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
-			.attr("r", function(d) {return (5.25-d.depth)*zoomFactor;});*/
+
 		var g = big.selectAll("g").data(layoutData).enter()
 			.append("svg:g")
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";});
@@ -127,6 +162,14 @@ function render() {
 		changeZoomWindow(zoomFactor);
 		zoom(miniW/2, miniH/2);	
 		
+		//build the auto complete list
+		layoutData.forEach(function (d) { 
+			d.conferences.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
+			d.authors.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
+			d.phrases.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
+			Object.keys(d.year).forEach(function(d) {autoCompleteTags[d] = true;});
+		});
+		autoCompleteTags = Object.keys(autoCompleteTags);
 	});
 }
 

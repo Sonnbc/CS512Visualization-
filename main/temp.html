@@ -4,7 +4,7 @@
 	<title>Amethyst</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" href="style.css"/>
-	<link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap.min.css"/>	
+	<link rel="stylesheet" media="screen" href="bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
 	<div id="title" class-"page-header"> 
@@ -16,15 +16,16 @@
 	<div id="mainmenu" class="btn-toolbar">
 		<button class="btn btn-primary">Home</button>
 		<button class="btn btn-primary">Load</button>
-		<button class="btn btn-primary">Browse</button>
+		<button class="btn btn-primary" id="browse-btn">Browse</button>
 		<div class="btn-group">
 			<button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
 				Search
 				<span class="caret"></span>
 			</button>
-			<ul class="dropdown-menu">
-				<li><a href="#">Topic Search</a></li>
-				<li><a href="#">Related Entity Search</a></li>
+			<ul class="dropdown-menu" id="search-items">
+				<li><a href="#" id="freetext-btn">FreeText Search</a></li>
+				<li><a href="#" id="entity-btn">Entity Search</a></li>
+				<li><a href="#" id="related-btn">Related Entity Search</a></li>
 			</ul>
 		</div>
 		<button class="btn btn-primary">About</button>
@@ -34,7 +35,12 @@
 		<div id="visualization"></div>
 		
 		<div id="leftpanel">
-			<div class="tabbable"> 
+			<div id="query-input" class="form-inline">
+				<input id="query-text" type="text" class="input-xlarge" placeholder="Enter query...">
+				<button class="btn">Query</button>
+			</div>
+			
+			<div id="tabtable"> 
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#phrases" data-toggle="tab">Phrases</a></li>
 					<li><a href="#authors" data-toggle="tab">Authors</a></li>
@@ -48,10 +54,10 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/d3/d3.js"></script>
     <script type="text/javascript" src="js/d3/d3.layout.js"></script>
