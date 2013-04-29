@@ -31,11 +31,11 @@ $('#query-text')
 		}
 	})
 	.autocomplete({
-		minLength: 0,
+		minLength: 1,
 		source: function(request, response) {
+			var key = request.term.split(/,\s*/).pop();
 			// delegate back to autocomplete, but extract the last term
-			response($.ui.autocomplete.filter(
-				autoCompleteTags, request.term.split(/,\s*/).pop()) );
+			response($.ui.autocomplete.filter(autoCompleteTags, key));
 		},
 		focus: function() {
 			// prevent value inserted on focus
