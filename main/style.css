@@ -1,5 +1,5 @@
 body {
-	padding: 20px 50px 0px 50px;
+	padding: 20px 20px 0px 20px;
 }
 
 #title {
@@ -24,12 +24,18 @@ body {
 
 #leftpanel {
 	float:right;
-	width:300px;
 }
 
-#detailview {
-	float:right;
+#query-input{
+	
 }
+
+#tabtable {
+	width:300px;
+	float:right;
+	margin-top: 20px;
+}
+
 svg {
 	border-style:solid;
 	border-width:5px;
