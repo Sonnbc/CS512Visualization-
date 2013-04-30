@@ -56,12 +56,13 @@ svg {
 
 
 .node {
-	fill: #fff;
+	fill: #CD3333;
 	stroke: steelblue;
 }
 
 .selectedNode {
 	fill:steelblue;
+	fill-opacity:1.0;
 }
 
 #mini .node {

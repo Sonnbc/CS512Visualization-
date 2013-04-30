@@ -10,6 +10,8 @@ var zoomFactor = 10,
 	lastZoom = {};
 	scaleX = d3.scale.linear().range([0, bigH]),
 	scaleY = d3.scale.linear().range([0, bigW]);
+	
+var	myWindow;
 
 var tree = d3.layout.tree().size([miniH, miniW]);
 
@@ -65,9 +67,6 @@ d3.select("#visualization").selectAll("svg")
 var mini = d3.select("#mini");
 var big = d3.select("#big");
 
-//create the zoom window in mini SVG
-var myWindow = mini.append("svg:rect").attr("id", "window");
-		
 
 //listen to mouse click on mini SVG
 mini.on("click", 
@@ -104,18 +103,28 @@ $("#big").mousemove(
 		zoom(lastZoom.x - dx, lastZoom.y - dy);
 	});
 
-//set the main menu
-	
 render();
 
-function render() {
-
-	d3.json("dataGen/data.json", function(data) {
+function render(colorMode) {
+	//set default value of  colorMode
+	if (typeof(colorMode) === 'undefined') colorMode = "common";
+	
+	//clear the content of the two SVGs
+	mini.selectAll('*').remove();
+	big.selectAll('*').remove();
+	
+	//create the zoom window in mini SVG
+	myWindow = mini.append("svg:rect").attr("id", "window");
+	
+	d3.json("dataGen/stupidjson.json", function(data) {
 		var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
 		var layoutData = tree.nodes(data).reverse();
 		
-		//fixed depth. TODO: change to fit different datasets
-		layoutData.forEach(function (d) { d.y = 10 + d.depth * 40; });
+		//recalculate the depth to fit with the width of mini panel
+		var maxDepth = 0;
+		layoutData.forEach(function (d) { if (d.depth > maxDepth) maxDepth = d.depth;});
+		layoutData.forEach(function (d) { d.y = 10 + d.depth * (miniW - 20)/maxDepth; });
+		
 		//append id to data
 		var i = 0;
 		layoutData.forEach(function (d) { d._id = i++; });
@@ -128,7 +137,8 @@ function render() {
 			.attr("transform", function(d) {return "translate(" + d.y + "," + d.x + ")";})
 			.attr("r", miniRadius)
 			.attr("class", "node")
-			.attr("data-id", function(d) {return d._id;});
+			.attr("data-id", function(d) {return d._id;})
+			.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;});
 			
 		big.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
@@ -142,13 +152,17 @@ function render() {
 			.attr("r", bigRadius)
 			.attr("class", "node")
 			.attr("data-id", function(d) {return d._id;})
+			.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;})
 			.on("click", function(d) {
 				d3.select("#phrases").text(d.phrases.split(",").join(", "));
 				d3.select("#authors").text(d.authors.split(",").join(", "));
 				d3.select("#conferences").text(d.conferences.split(",").join(", "));
 				
-				d3.selectAll(".selectedNode").attr("class", "node");
-				d3.selectAll("[data-id=\"" + d._id + "\"]").attr("class", "selectedNode");
+				d3.selectAll(".selectedNode").attr("class", "node")
+				.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;});
+				
+				d3.selectAll("[data-id=\"" + d._id + "\"]").attr("class", "selectedNode")
+				.style("fill-opacity", 1);
 			});
 				
 		g.append("svg:text")
@@ -167,7 +181,7 @@ function render() {
 			d.conferences.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
 			d.authors.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
 			d.phrases.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
-			Object.keys(d.year).forEach(function(d) {autoCompleteTags[d] = true;});
+			Object.keys(d.years).forEach(function(d) {autoCompleteTags[d] = true;});
 		});
 		autoCompleteTags = Object.keys(autoCompleteTags);
 	});
