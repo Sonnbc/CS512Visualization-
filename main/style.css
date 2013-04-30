@@ -2,6 +2,10 @@ body {
 	padding: 20px 20px 0px 20px;
 }
 
+text {
+	-webkit-user-select: none;
+}
+
 #title {
 	float:left;
 	color:steelblue;
@@ -56,12 +60,13 @@ svg {
 
 
 .node {
-	fill: #fff;
+	fill: #CD3333;
 	stroke: steelblue;
 }
 
 .selectedNode {
 	fill:steelblue;
+	fill-opacity:1.0;
 }
 
 #mini .node {
@@ -77,6 +82,8 @@ svg {
 	stroke: #ccc;
 	stroke-width: 1.5px;
 }
+
+
 
 
 
