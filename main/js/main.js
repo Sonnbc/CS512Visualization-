@@ -23,8 +23,11 @@ $(document).ready(function(){
 
 //configure the main menu and the search form
 $('#query-input').hide();
-$('#search-items').on("click", function() {$('#query-input').show();});
-$('#browse-btn').on("click", function() {$('#query-input').hide();});
+$('#search-btn').on("click", function() {$('#query-input').show();});
+$('#browse-btn').on("click", function() {
+	$('#query-input').hide();
+	render("dataGen/browse.json");
+});
 $('#query-text')
 	.bind("keydown", function(event) {
 		if (event.keyCode === $.ui.keyCode.TAB &&
@@ -55,7 +58,25 @@ $('#query-text')
 			return false;
 		}
 	});
+	
+//Mock querying
 
+$("#query-btn").on("click", function() {
+	var query = $("#query-text").val();
+	if (query.indexOf("christos faloutsos") >= 0) {
+		render("dataGen/queryFalloutsos.json");
+	}
+	else if (query.indexOf("jiawei han") >= 0) {
+		render("dataGen/queryHan.json");
+	}
+	else if (query.indexOf("sigir") >= 0) {
+		render("dataGen/querySigir.json");
+	}
+	else if (query.indexOf("feature") >= 0) {
+		render("dataGen/freetextFeatureSelection.peer-to-peer.json");
+	}
+});
+	
 //create one big SVG and one mini SVG
 var dsvg = [{w:miniW, h:miniH, id:"mini"}, {w:bigW, h:bigH, id:"big"}];
 d3.select("#visualization").selectAll("svg")
@@ -103,11 +124,9 @@ $("#big").mousemove(
 		zoom(lastZoom.x - dx, lastZoom.y - dy);
 	});
 
-render();
+render("dataGen/browse.json");
 
-function render(colorMode) {
-	//set default value of  colorMode
-	if (typeof(colorMode) === 'undefined') colorMode = "common";
+function render(jsonPath) {
 	
 	//clear the content of the two SVGs
 	mini.selectAll('*').remove();
@@ -116,7 +135,7 @@ function render(colorMode) {
 	//create the zoom window in mini SVG
 	myWindow = mini.append("svg:rect").attr("id", "window");
 	
-	d3.json("dataGen/stupidjson.json", function(data) {
+	d3.json(jsonPath, function(data) {
 		var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
 		var layoutData = tree.nodes(data).reverse();
 		
@@ -129,6 +148,16 @@ function render(colorMode) {
 		var i = 0;
 		layoutData.forEach(function (d) { d._id = i++; });
 		
+		//scale score
+		if (typeof(data.score) !== 'undefined') {
+			var min = 1, max = 0;
+			layoutData.forEach(function(d) { 
+				max = Math.max(d.score, max);
+				min = Math.min(d.score, min);
+			});
+			layoutData.forEach(function(d) { d.score = (d.score - min)/(max - min); });
+		}
+		
 		mini.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
 			
@@ -138,7 +167,7 @@ function render(colorMode) {
 			.attr("r", miniRadius)
 			.attr("class", "node")
 			.attr("data-id", function(d) {return d._id;})
-			.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;});
+			.style("fill", function(d) {return calculateColor(d.score);})
 			
 		big.selectAll("path").data(tree.links(layoutData)).enter()
 			.append("svg:path").attr("d", diagonal);
@@ -152,17 +181,17 @@ function render(colorMode) {
 			.attr("r", bigRadius)
 			.attr("class", "node")
 			.attr("data-id", function(d) {return d._id;})
-			.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;})
+			.style("fill", function(d) {return calculateColor(d.score);})
 			.on("click", function(d) {
 				d3.select("#phrases").text(d.phrases.split(",").join(", "));
 				d3.select("#authors").text(d.authors.split(",").join(", "));
 				d3.select("#conferences").text(d.conferences.split(",").join(", "));
 				
 				d3.selectAll(".selectedNode").attr("class", "node")
-				.style("fill-opacity", function(d) {return d.score[colorMode]/10.0;});
+				.style("fill", function(d) {return calculateColor(d.score);})
 				
 				d3.selectAll("[data-id=\"" + d._id + "\"]").attr("class", "selectedNode")
-				.style("fill-opacity", 1);
+				.style("fill", "steelblue");
 			});
 				
 		g.append("svg:text")
@@ -181,7 +210,7 @@ function render(colorMode) {
 			d.conferences.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
 			d.authors.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
 			d.phrases.split(",").forEach(function(d) {autoCompleteTags[d] = true;});
-			Object.keys(d.years).forEach(function(d) {autoCompleteTags[d] = true;});
+			//Object.keys(d.years).forEach(function(d) {autoCompleteTags[d] = true;});
 		});
 		autoCompleteTags = Object.keys(autoCompleteTags);
 	});
@@ -217,7 +246,13 @@ function zoom(px, py) {
 	big.selectAll("path").attr("d", diagonal);
 }
 
-
+function calculateColor(score) {
+	if (typeof(score) === 'undefined') return 'white';
+	var red = 255;
+	var green = Math.floor((1 - score)*255);
+	var blue = Math.floor((1 - score)*255);
+	return 'rgb('+ red +',' + green + ',' + blue + ')';
+}
 
 
 });
