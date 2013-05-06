@@ -36,7 +36,7 @@ $('#query-text')
 		}
 	})
 	.autocomplete({
-		minLength: 1,
+		minLength: 2,
 		source: function(request, response) {
 			var key = request.term.split(/,\s*/).pop();
 			// delegate back to autocomplete, but extract the last term
