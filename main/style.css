@@ -40,6 +40,10 @@ text {
 	margin-top: 20px;
 }
 
+#tabtable div {
+	height: 600px;
+}
+
 svg {
 	border-style:solid;
 	border-width:5px;
@@ -60,13 +64,12 @@ svg {
 
 
 .node {
-	fill: #CD3333;
+	/*fill: #CD3333;*/
 	stroke: steelblue;
 }
 
 .selectedNode {
 	fill:steelblue;
-	fill-opacity:1.0;
 }
 
 #mini .node {
